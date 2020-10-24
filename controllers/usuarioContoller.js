@@ -53,8 +53,6 @@ const actualizarUsuario = async (req, res = response) => {
   //TODO: validar token y comprovar si el usario es correcto
   const uid = req.params.id;
 
-
-
   try {
 
     const usuarioDB = await Usuario.findById(uid);
@@ -76,12 +74,21 @@ const actualizarUsuario = async (req, res = response) => {
         });
       }
     }
+    //Si es usuario de google no puede  actualizar el campo email
+    if (!usuarioDB.google) {
+      campos.email = email;
+    } else if (usuarioDB.email !== email) {
+      return res.status(400).json({
+        ok: false,
+        message: 'Los usuarios de google no pueden actualizar el email'
+      });
+    }
     //actualizaciones 
-    campos.email = email;
     const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
     res.json({
       ok: true,
+      message: 'Usuario actualizado éxitosamente',
       usuario: usuarioActualizado
     });
 

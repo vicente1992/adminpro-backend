@@ -57,7 +57,6 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       }
 
       pathViejo = `./uploads/usuarios/${usuario.img}`;
-      console.log({ pathViejo });
 
       borrarImagen(pathViejo);
 
