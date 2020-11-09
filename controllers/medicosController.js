@@ -11,6 +11,21 @@ const getMedicos = async (req, res = response) => {
     medicos
   })
 }
+const getMedico = async (req, res = response) => {
+  const { id } = req.params;
+  const medico = await Medico.findById(id);
+  if (!medico) {
+    res.status(400).json({
+      ok: false,
+      message: `No se encontra un médico con el id ${id}.`
+    });
+  }
+  res.json({
+    ok: true,
+    medico
+  })
+
+}
 const crearMedico = async (req, res = response) => {
 
   const uid = req.uid;
@@ -94,6 +109,7 @@ const borrarMedico = async (req, res = response) => {
 
 module.exports = {
   getMedicos,
+  getMedico,
   crearMedico,
   actualizarMedico,
   borrarMedico
