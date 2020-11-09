@@ -26,4 +26,9 @@ app.use('/api/v1/hospitales', require('./routes/hospitales'));
 app.use('/api/v1/medicos', require('./routes/medicos'));
 app.use('/api/v1/todo', require('./routes/busqueda'));
 app.use('/api/v1/upload', require('./routes/upload'));
+
+
+app.get('*', (req, res) => {
+  res.json({ message: 'Welcome api adminpro' })
+});
 app.listen(process.env.PORT, () => console.log(`Servidor corriendo en el puerto` + process.env.PORT));
